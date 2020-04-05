@@ -66,7 +66,7 @@ class MasterPasswordCreation extends Component {
                                             <MDBInput label="Your name" icon="user" group type="text" validate error="wrong"
                                                       success="right"
                                                       onChange = {(event) =>
-                                                    this.handleName(event.target.value)}
+                                                            this.handleName(event.target.value)}
                                                       value = {this.state.name}/>
                                             <MDBInput label="Your email" icon="envelope" group type="email" validate error="wrong"
                                                       success="right"

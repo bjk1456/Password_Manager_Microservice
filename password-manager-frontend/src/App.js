@@ -3,6 +3,7 @@ import { Link, Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import ListBooks from './ListBooks'
 import MasterPasswordCreation from './MasterPasswordCreation'
+import ViewPasswords from './ViewPasswords'
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -98,7 +99,7 @@ class PasswordManagerApp extends React.Component {
             Create Regular Password
           </Button>
           <Button variant="contained">
-            View Regular Passwords
+            <Link to="/viewPasswords">View Regular Passwords</Link>
           </Button>
 
           <ListBooks books={this.state.currentlyReading} onAddBookChoice={this.addBookChoice} heading={"Currently Reading"}/>
@@ -112,11 +113,11 @@ class PasswordManagerApp extends React.Component {
     </div>
     )}/>
 
-          <Route exact path = "/createMasterPassword"
-                  component = {
-                    MasterPasswordCreation
-                  }
-          />
+    <Route exact path = "/createMasterPassword"
+           component = {MasterPasswordCreation}/>
+
+      <Route exact path = "/viewPasswords"
+             component = {ViewPasswords}/>
 
     <Route path="/search" render ={() => (
     <div className="search-books">
