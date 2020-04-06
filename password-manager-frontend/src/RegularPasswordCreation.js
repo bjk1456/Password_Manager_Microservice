@@ -3,8 +3,9 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import Login from './Login'
+import PasswordCreation from "./PasswordCreation";
 
-class ViewPasswords extends Component {
+class RegularPasswordCreation extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
         onAddBookChoice: PropTypes.func.isRequired,
@@ -37,10 +38,11 @@ class ViewPasswords extends Component {
 
     render() {
         return (
-            <div className='view-passwords'>
+            <div className='regular-password-creation'>
                 <Login/>
+                <PasswordCreation/>
             </div>
         )}
 }
 
-export default ViewPasswords
+export default RegularPasswordCreation
