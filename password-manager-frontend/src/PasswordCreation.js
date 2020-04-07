@@ -52,6 +52,16 @@ class PasswordCreation extends Component {
         }
     }
 
+    handleGenerateRandom(){
+        const generator = require('generate-password');
+        const password = generator.generate({
+            length: 10,
+            numbers: true
+        });
+        this.setState({pswdN: password})
+        this.setState({pswdS: password})
+    }
+
     render() {
         return (
             <div className='password-creation'>
@@ -73,11 +83,11 @@ class PasswordCreation extends Component {
                                                   onChange = {(event) =>
                                                       this.handleEmail(event.target.value)}
                                                   value = {this.state.email}/>
-                                        <MDBInput label="Your password" icon="lock" group type="password" validate
+                                        <MDBInput label="Your password" icon="lock" group type="text" validate
                                                   onChange = {(event) =>
                                                       this.handlePswdN(event.target.value)}
                                                   value = {this.state.pswdN}/>
-                                        <MDBInput label="Confirm your password" icon="exclamation-triangle" group type="password" validate
+                                        <MDBInput label="Confirm your password" icon="exclamation-triangle" group type="text" validate
                                                   error="wrong" success="right"
                                                   onChange = {(event) =>
                                                       this.handlePswdS(event.target.value)}
@@ -86,6 +96,8 @@ class PasswordCreation extends Component {
                                     <div className="text-center">
                                         <MDBBtn onClick= {(event) =>
                                             this.handleRegister(event.target.value)} color="primary">Register</MDBBtn>
+                                        <MDBBtn onClick= {(event) =>
+                                            this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
                                     </div>
                                 </form>
                             </MDBCol>
