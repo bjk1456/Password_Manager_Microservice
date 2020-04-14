@@ -133,31 +133,26 @@ router.post('/', async (req: Request, res: Response) => {
         return res.status(400).send({ auth: false, message: 'Password is required' });
     }
 
-    // find the user
-    const user = await User.findByPk(email);
-    // check that user doesnt exists
-    if(user) {
-        return res.status(422).send({ auth: false, message: 'User may already exist' });
+    const request = {
+        text: 'CALL store_master_password($1, $2);',
+        values: [email,plainTextPassword]
     }
 
-    //const password_hash = await generatePassword(plainTextPassword);
+    await pool.query(request).then((body)  => {
+        //const resp = JSON.stringify(body);
 
-    const newUser = await new User({
-        email: email,
-        password: password
-    });
+        //const resp = body{'authenticate_email'}
+        // Generate JWT
+        const jwt = generateJWT(email);
 
-    let savedUser;
-    try {
-        savedUser = await newUser.save();
-    } catch (e) {
-        throw e;
-    }
+        res.status(200).send({ auth: true, token: jwt, user: email});
+        //res.send(`Successfully added master password`);
+    }).catch((err) => {
+        //res.send(err.detail);
+        return res.status(401).send({ auth: false, message: err.detail });
 
-    // Generate JWT
-    const jwt = generateJWT(savedUser);
-
-    res.status(201).send({token: jwt, user: savedUser.short()});
+    })
+    console.log("Sup dude? ... Inside PATH /")
 });
 
 router.get('/', async (req: Request, res: Response) => {
