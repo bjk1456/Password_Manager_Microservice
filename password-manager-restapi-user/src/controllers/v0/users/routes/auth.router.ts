@@ -18,6 +18,7 @@ const pool = new Pool({
     port: 5432,
 })
 
+
 const router: Router = Router();
 /**
  async function generatePassword(plainTextPassword: string): Promise<string> {
@@ -145,7 +146,7 @@ router.post('/', async (req: Request, res: Response) => {
         // Generate JWT
         const jwt = generateJWT(email);
 
-        res.status(200).send({ auth: true, token: jwt, user: email});
+        return res.status(200).send({ auth: true, token: jwt, user: email});
         //res.send(`Successfully added master password`);
     }).catch((err) => {
         //res.send(err.detail);

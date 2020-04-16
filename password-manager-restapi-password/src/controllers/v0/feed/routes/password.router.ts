@@ -53,14 +53,11 @@ router.get('/getAll',
     });
     console.log(`the email is ${email} `)
 
-
-
     const request = {
         text: 'SELECT get_regular_password($1, $2);',
         values: [email,c.config.password.key]
     }
     await pool.query(request).then((body)  => {
-        const vals = JSON.stringify(body);
         let passwords = [];
         console.log(`the vals are ${body.rows[0].get_regular_password}`)
         body.rows.forEach((row: any) => {

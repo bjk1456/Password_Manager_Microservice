@@ -4,37 +4,44 @@ import escapeRegExp from 'escape-string-regexp'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import PasswordCreation from "./PasswordCreation";
 
-class MasterPasswordCreation extends Component {
+interface State {
+    name: string;
+    email: string;
+    pswdN: string;
+    pswdS: string;
+}
+
+export default class MasterPasswordCreation extends Component {
     static propTypes = {
         books: PropTypes.array.isRequired,
         onAddBookChoice: PropTypes.func.isRequired,
         heading: PropTypes.string
     }
 
-    state = {
+    state: State = {
         name: "",
         email: "",
         pswdN: "",
         pswdS: ""
     }
 
-    handleName(e) {
+    handleName(e: any) {
         this.setState({name: e})
     }
 
-    handleEmail(e) {
+    handleEmail(e: any) {
         this.setState({email: e})
     }
 
-    handlePswdN(e) {
+    handlePswdN(e: any) {
         this.setState({pswdN: e})
     }
 
-    handlePswdS(e) {
+    handlePswdS(e: any) {
         this.setState({pswdS: e})
     }
 
-    handleRegister(e) {
+    handleRegister(e: any) {
         if(this.state.name.length < 3){
             alert("The name must be AT LEAST 3 characters")
             return
@@ -54,11 +61,10 @@ class MasterPasswordCreation extends Component {
     }
 
     render() {
-            return (
-                <div className='master-password-creation'>
-                    <PasswordCreation/>
-                </div>
-            )}
+        return (
+            <div className='master-password-creation'>
+                <PasswordCreation/>
+            </div>
+        )}
 }
 
-export default MasterPasswordCreation

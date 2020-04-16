@@ -5,27 +5,32 @@ import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import Login from './Login'
 import PasswordCreation from "./PasswordCreation";
 
+interface State {
+    email: string;
+    pswd: string;
+}
+
 class RegularPasswordCreation extends Component {
+    state: State = {
+        email: "",
+        pswd: ""
+    }
+    
     static propTypes = {
         books: PropTypes.array.isRequired,
         onAddBookChoice: PropTypes.func.isRequired,
         heading: PropTypes.string
     }
 
-    state = {
-        email: "",
-        pswd: "",
-    }
-
-    handleEmail(e) {
+    handleEmail(e: any) {
         this.setState({email: e})
     }
 
-    handlePswd(e) {
+    handlePswd(e: any) {
         this.setState({pswd: e})
     }
 
-    handleSubmit(e) {
+    handleSubmit(e: any) {
         if(this.state.email.length < 3){
             alert("The name must be AT LEAST 3 characters")
             return
@@ -39,7 +44,7 @@ class RegularPasswordCreation extends Component {
     render() {
         return (
             <div className='regular-password-creation'>
-                <Login/>
+                <Login />
                 <PasswordCreation/>
             </div>
         )}

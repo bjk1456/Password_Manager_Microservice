@@ -38,24 +38,14 @@ $$;
 
 CREATE OR REPLACE FUNCTION get_regular_password(_master_email text, _regular_password text) RETURNS TABLE(
     freetext_password text,
-    _website text)
+    _website text,
+    _created_at time with time zone)
 LANGUAGE plpgsql    
 AS $$
 DECLARE
     m_id real := (SELECT master_p_id FROM master_password WHERE master_password.email = _master_email);
 BEGIN    
-   RETURN QUERY SELECT pgp_sym_decrypt(r_password::bytea,_regular_password) as freetext_password, website as _website  FROM regular_password WHERE master_p_id = m_id;
-END $$;
-
-CREATE OR REPLACE FUNCTION get_regular_password(_master_email text, _regular_password text) RETURNS TABLE(
-    freetext_password text,
-    website text)
-LANGUAGE plpgsql
-AS $$
-DECLARE
-    m_id real := (SELECT master_p_id FROM master_password WHERE master_password.email = _master_email);
-BEGIN
-   RETURN QUERY SELECT website  FROM regular_password WHERE master_p_id = m_id;
+   RETURN QUERY SELECT pgp_sym_decrypt(r_password::bytea,_regular_password) as freetext_password, website as _website, created_at as _created_at  FROM regular_password WHERE master_p_id = m_id;
 END $$;
 
 

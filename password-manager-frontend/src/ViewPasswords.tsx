@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import Login from './Login'
 
-class ViewPasswords extends Component {
-    static propTypes = {
-        books: PropTypes.array.isRequired,
-        onAddBookChoice: PropTypes.func.isRequired,
-        heading: PropTypes.string
-    }
+interface State {
+    email: string;
+    pswd: string;
+}
 
-    state = {
+export default class ViewPasswords extends Component {
+
+
+    state: State = {
         email: "",
-        pswd: "",
+        pswd: ""
     }
 
-    handleEmail(e) {
+    handleEmail(e: any) {
         this.setState({email: e})
     }
 
-    handlePswd(e) {
+    handlePswd(e: any) {
         this.setState({pswd: e})
     }
 
-    handleSubmit(e) {
+    handleSubmit(e: any) {
         if(this.state.email.length < 3){
             alert("The name must be AT LEAST 3 characters")
             return
@@ -42,5 +42,3 @@ class ViewPasswords extends Component {
             </div>
         )}
 }
-
-export default ViewPasswords
