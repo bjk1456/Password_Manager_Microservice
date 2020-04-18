@@ -10,6 +10,8 @@ interface State {
 }
 
 export default class Login extends Component {
+    api = new (ApiService)
+    auth = new AuthService(this.api)
     state: State = {
         email: "",
         pswd: ""
@@ -35,7 +37,7 @@ export default class Login extends Component {
             return
         }
 
-        auth.login(
+        this.auth.login(
             this.state.email,
             this.state.pswd)
             .then((user: any) => {
@@ -47,6 +49,16 @@ export default class Login extends Component {
                 alert(e.statusText)
                 throw e;
             });
+    }
+
+    async handleGetPasswords(e: any) {
+
+        //const api = new ApiService();
+        const all = await this.api.get('/password/getAll');
+        //const rows = all.passwords;
+        console.log(`the rows of data are ${all.passwords}`)
+
+
 
     }
 
@@ -78,6 +90,10 @@ export default class Login extends Component {
         <MDBBtn onClick= {(event) =>
         this.handleSubmit((event.target as HTMLTextAreaElement).value)} color="indigo" >Login</MDBBtn>
             </div>
+                <div className="text-center mt-4">
+                    <MDBBtn onClick= {(event) =>
+                        this.handleGetPasswords((event.target as HTMLTextAreaElement).value)} color="indigo" >Get Passwords</MDBBtn>
+                </div>
             </form>
             </MDBCol>
             </MDBRow>

@@ -58,14 +58,14 @@ router.get('/getAll',
         values: [email,c.config.password.key]
     }
     await pool.query(request).then((body)  => {
-        let passwords = [];
+        let passwords: any[] = [];
         console.log(`the vals are ${body.rows[0].get_regular_password}`)
         body.rows.forEach((row: any) => {
             passwords.push(row.get_regular_password);
         })
         console.log(`passwords == ${passwords}`)
 
-        return res.status(200).send({ message: 'Password added.' });
+        return res.status(200).send({ passwords });
     }).catch((err) => {
         //res.send(err.detail);
         return res.status(401).send({ auth: false, message: err.detail });
