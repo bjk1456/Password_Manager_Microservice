@@ -44,8 +44,8 @@ class RegularPasswordCreation extends Component {
     render() {
         return (
             <div className='regular-password-creation'>
-                <Login />
-                <PasswordCreation/>
+
+
             </div>
         )}
 }

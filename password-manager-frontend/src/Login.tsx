@@ -3,13 +3,18 @@ import PropTypes from 'prop-types'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import { AuthService } from './app/auth/services/auth.service';
 import {ApiService} from "./app/api/api.service";
+import history from './History';
 
 interface State {
     email: string;
     pswd: string;
 }
 
-export default class Login extends Component {
+type LoginProps = {
+    addPassword: Function
+}
+
+export default class Login extends Component<LoginProps,{}> {
     api = new (ApiService)
     auth = new AuthService(this.api)
     state: State = {
@@ -27,7 +32,8 @@ export default class Login extends Component {
 
     handleSubmit(e: any) {
 
-        const auth = new AuthService(new ApiService)
+        const api = new ApiService()
+        const auth = new AuthService(api)
         if(this.state.email.length < 3){
             alert("The name must be AT LEAST 3 characters")
             return
@@ -41,10 +47,51 @@ export default class Login extends Component {
             this.state.email,
             this.state.pswd)
             .then((user: any) => {
-               console.log(`the user is ${user}`)
+               console.log(`the user is ${user.toString()}`)
+
                 //this.modal.dismiss();
-            })
-            .catch((e) => {
+            }).then((data: any) => {
+                this.api.get("/password/getAll").then((data: any) => {
+                    console.log(`the get all data is ${JSON.stringify(data.passwords)}`)
+                    const rowData1 = Array();
+                    const rowData = Array();
+                    data.passwords.forEach((row : any) => {
+
+                        let a = new Array();
+                        //let mapRow = new Map();
+                        //let mapRow: {[password: string] : }
+                        let mapRow = {}
+                        console.log(`inside the build row ... it is ${row}`)
+                        console.log(`inside the build row.split(",")[0]) ... it is ${row.split(",")[0]}`)
+                        let pswd = row.split(",")[0].toString()
+                        //{password: pswd}
+                        //mapRow['password'] =  {password: pswd}
+
+                        //mapRow.set("password", row.split(",")[0].toString())
+                        //a.push({'password': val})
+                        a.concat({'password': row.split(",")[0].toString()})
+                        //rowData.concat({'password': row.split(",")[0].toString()})
+                        rowData.push({password: pswd})
+                    })
+                    rowData.forEach((r) => {
+                        console.log(`the r is ${r['password']}`)
+                    })
+                    //console.log(`SON.stringify(array) == ${JSON.stringify(rowData1)}`)
+                    //console.log(`array[1] == ${rowData1[1]['password']}`)
+                    /**
+                    let map = {}
+                    data.passwords.forEach(row =>
+                    array.push(map{password: row[0]}))
+                     */
+
+
+
+                    //rowData.push({"password": "ItsASecret"})
+                    this.props.addPassword(rowData);
+                    //this.props.addPassword([{password:"SuperSecretPassword"},{password:"AnotherBigSecret"}])
+                })
+                history.push('/')
+        })   .catch((e) => {
                 //this.error = e.statusText;
                 alert(e.statusText)
                 throw e;

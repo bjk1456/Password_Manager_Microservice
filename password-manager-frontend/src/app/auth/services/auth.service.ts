@@ -53,6 +53,10 @@ export class AuthService {
     localStorage.clear();
     return true;
   }
+
+  getTokenInStorage(): string | null {
+      return localStorage.getItem(JWT_LOCALSTORE_KEY);
+  }
 /**
   register(email: string, password: string): Promise<any> {
     return this.api.post('/users/auth/',

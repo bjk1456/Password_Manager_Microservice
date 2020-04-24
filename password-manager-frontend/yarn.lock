@@ -905,7 +905,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.2", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.4":
+"@babel/runtime@^7.1.2", "@babel/runtime@^7.2.0", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.2", "@babel/runtime@^7.4.4", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.4":
   version "7.9.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
   integrity sha512-NE2DtOdufG7R5vnfQUTehdTfNycfUANEtCa9PssN9O/xmTzP4E08UI797ixaei6hBEVL9BI/PsdJS5x7mWoB9Q==
@@ -967,6 +967,48 @@
   version "1.3.5"
   resolved "https://registry.yarnpkg.com/@date-io/moment/-/moment-1.3.5.tgz#e5bf3837cbd3f5f5f5d7f49d8549e4118ea75f8d"
   integrity sha512-b0JQb10Lie07iW2/9uKCQSrXif262d6zfYBstCLLJUk0JVA+7o/yLDg5p2+GkjgJbmodjHozIXs4Bi34RRhL8Q==
+
+"@devexpress/dx-core@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-core/-/dx-core-2.6.2.tgz#7f87250b1d95b71dd67bc17683f02192ca46f729"
+  integrity sha512-+0SX4dsakt0Yo10wbMhfw/enC71+RKCCUbr8uxmn9xvnUKH5bkVTKS412bFlqJs04e9uTn9R6dvGhC/C7jobLA==
+
+"@devexpress/dx-grid-core@2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-grid-core/-/dx-grid-core-2.6.2.tgz#d14871dd73445b4c58c5e002341739f491a688b6"
+  integrity sha512-imhLILOnzsWvr6+cMSJikhl3rWICL2el0tTPCU8tLxg5pa2J9Gc9ra2NyFLv4XHEAqVKpNxUGtQ8fOK7aZZzcQ==
+
+"@devexpress/dx-react-core@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-core/-/dx-react-core-2.6.2.tgz#b3dc30d79c73d2b16c83bc535ed12b581f8a7610"
+  integrity sha512-5734dJ7TIhFYHpFykajrxCX7YYc+7AIrn8FN6T/rPIOCee0ku1tsG2wQwDLIaPr+SQ7eJ+i5n15jKVsrU27L8g==
+  dependencies:
+    "@devexpress/dx-core" "2.6.2"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid-bootstrap4@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-bootstrap4/-/dx-react-grid-bootstrap4-2.6.2.tgz#5488a943eb1195cc62770985bfedc1f88dca7b18"
+  integrity sha512-QQaJVcHT06t1vtT0lrTtHEF815ousOhthackQ3A796MQnAVEo3arfeRwhob10vphbWDZWxgtk1ykAUkHnVmh6w==
+  dependencies:
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+    react-popper "^1.3.7"
+
+"@devexpress/dx-react-grid-material-ui@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid-material-ui/-/dx-react-grid-material-ui-2.6.2.tgz#9719b9db8af988ab0b0286806f6e7463d1c6c6ee"
+  integrity sha512-YAnr8MZ294kgPTUV/lcVVHwBjPwKEgqyadg3s5TVUnsPL7KjykeamqC6/ok4PFIT4XOHgvGbd8jd7szCxHs/hQ==
+  dependencies:
+    clsx "^1.0.4"
+    prop-types "^15.7.2"
+
+"@devexpress/dx-react-grid@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/@devexpress/dx-react-grid/-/dx-react-grid-2.6.2.tgz#32040cf93627742ef445bc17a17e9ce9eb6aa299"
+  integrity sha512-i3icLGHmh4bW87seghRFkRqxUAckTgzeKw+P2LlCK0A4hIOab+583A1aBPexNk2XiHBNbiu8ZwRGNxWE1ByOKQ==
+  dependencies:
+    "@devexpress/dx-grid-core" "2.6.2"
 
 "@fortawesome/fontawesome-free@^5.12.0":
   version "5.13.0"
@@ -1196,6 +1238,13 @@
     recompose "0.28.0 - 0.30.0"
     warning "^4.0.1"
 
+"@material-ui/icons@^4.9.1":
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.9.1.tgz#fdeadf8cb3d89208945b33dbc50c7c616d0bd665"
+  integrity sha512-GBitL3oBWO0hzBhvA9KxqcowRUsA0qzwKkURyC8nppnC3fw54KPKZ+d4V1Eeg/UnDRSzDaI9nGCdel/eh9AQMg==
+  dependencies:
+    "@babel/runtime" "^7.4.4"
+
 "@material-ui/system@^3.0.0-alpha.0":
   version "3.0.0-alpha.2"
   resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-3.0.0-alpha.2.tgz#096e80c8bb0f70aea435b9e38ea7749ee77b4e46"
@@ -1232,6 +1281,11 @@
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.3.tgz#5405ee8e444ed212db44e79351f0c70a582aae25"
   integrity sha512-DetpxZw1fzPD5xUBrIAoplLChO2VB8DlL5Gg+I1IR9b2wPqYIca2WSUxL5g1vLeR4MsQq1NeWriXAVffV+U1Fw==
+
+"@silevis/reactgrid@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@silevis/reactgrid/-/reactgrid-3.0.4.tgz#c89053b5e0f10c46b07c3579508d6302e08b4b2d"
+  integrity sha512-cnjSjpnoMEyxgeykfImiKyV7RYv3xez+Ee6Gu8Zteqbn+20j4gaGINVKUXxrFvx60GPdxdWd1fnebSJhRyZjHw==
 
 "@svgr/babel-plugin-add-jsx-attribute@^4.2.0":
   version "4.2.0"
@@ -1863,6 +1917,18 @@ adjust-sourcemap-loader@2.0.0:
     loader-utils "1.2.3"
     object-path "0.11.4"
     regex-parser "2.2.10"
+
+ag-grid-community@^23.0.2:
+  version "23.0.2"
+  resolved "https://registry.yarnpkg.com/ag-grid-community/-/ag-grid-community-23.0.2.tgz#81fc92ce9e47c75e854337a1e2d8ef950c3a1d51"
+  integrity sha512-UaD4lEVKKVCA2rrgMJJV328sCp5rdR9hgOh6oMUpZRXCke/3m/r2odjGjzvfT7yeLClj6ZdZuCkM4NmEuCZ8KA==
+
+ag-grid-react@^23.0.3:
+  version "23.0.3"
+  resolved "https://registry.yarnpkg.com/ag-grid-react/-/ag-grid-react-23.0.3.tgz#2f632b877bd934b9d59c1590273a4487c71cd49f"
+  integrity sha512-zKhbD9vabBH1wRf/i7dwz1hCT2v0fE26Ss4dEXL3sZ492Abx18NjSXu/piOzLVWxLzmGErB1FmIPF2YYhY1SvA==
+  dependencies:
+    prop-types "^15.6.2"
 
 aggregate-error@^3.0.0:
   version "3.0.1"
@@ -2964,7 +3030,7 @@ clone-deep@^4.0.1:
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
 
-clsx@^1.0.2:
+clsx@^1.0.2, clsx@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.1.0.tgz#62937c6adfea771247c34b54d320fb99624f5702"
   integrity sha512-3avwM37fSK5oP6M5rQ9CNe99lwxhXDOeSWVPAOYF6OazUTgZCMb0yWlJpmdD74REy1gkEaFiub2ULv4fq9GUhA==
@@ -5157,7 +5223,7 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-history@^4.9.0:
+history@^4.10.1, history@^4.9.0:
   version "4.10.1"
   resolved "https://registry.yarnpkg.com/history/-/history-4.10.1.tgz#33371a65e3a83b267434e2b3f3b1b4c58aad4cf3"
   integrity sha512-36nwAD620w12kuzPAsyINPWJqlNbij+hpK1k9XRloDtym8mxzGYl2c17LnV6IAGB2Dmg4tEa7G7DlawS0+qjew==
@@ -6885,6 +6951,13 @@ map-visit@^1.0.0:
   integrity sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
   dependencies:
     object-visit "^1.0.0"
+
+material-ui-icons@^1.0.0-beta.36:
+  version "1.0.0-beta.36"
+  resolved "https://registry.yarnpkg.com/material-ui-icons/-/material-ui-icons-1.0.0-beta.36.tgz#86390a61f4c83f718eaba77ccce575834f2cf2a8"
+  integrity sha512-7rS6b2EV5QXCB/gTi/Ac9Wbxd+h9EZv1Td3rLLJe4IER8mVHRgdqZccB3EsjW2DrJ7opdY1+8X3/vyrS7CQNpg==
+  dependencies:
+    recompose "^0.26.0"
 
 material-ui-pickers@2.2.4:
   version "2.2.4"
@@ -8974,6 +9047,13 @@ react-chartjs-2@2.9.0:
     lodash "^4.17.4"
     prop-types "^15.5.8"
 
+react-data-grid@^7.0.0-canary.15:
+  version "7.0.0-canary.15"
+  resolved "https://registry.yarnpkg.com/react-data-grid/-/react-data-grid-7.0.0-canary.15.tgz#c10408461de0abf740d8589e055d6c1aff65b19e"
+  integrity sha512-l1iWrwqeb2qOJa5Qaa+ScDNnNkDnFmtvHtkJMgoFx99KNZTlPjNlnH3nkE3XiTFckjBKeSRFo2q2lJA4MmPqsg==
+  dependencies:
+    classnames "^2.2.6"
+
 react-dev-utils@^10.2.1:
   version "10.2.1"
   resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-10.2.1.tgz#f6de325ae25fa4d546d09df4bb1befdc6dd19c19"
@@ -9003,6 +9083,11 @@ react-dev-utils@^10.2.1:
     shell-quote "1.7.2"
     strip-ansi "6.0.0"
     text-table "0.2.0"
+
+react-dom-factories@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-dom-factories/-/react-dom-factories-1.0.2.tgz#eb7705c4db36fb501b3aa38ff759616aa0ff96e0"
+  integrity sha1-63cFxNs2+1AbOqOP91lhaqD/luA=
 
 react-dom@^16.12.0, react-dom@^16.13.1:
   version "16.13.1"
@@ -9094,6 +9179,13 @@ react-router-dom@^5.1.2:
     react-router "5.1.2"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-router-util@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-router-util/-/react-router-util-0.10.0.tgz#95f09aff7ac03a029a6df096d009ebbcc0f0e821"
+  integrity sha512-GEANsehJS8vXwPtlGRobrHFPVMp9ZxwFMYeOXzEW/ty1H3Lnug08lk82Z9uP6bcEx8v9H/ioFM6BLElL23FTgQ==
+  dependencies:
+    prop-types "^15.6.0"
 
 react-router@5.1.2:
   version "5.1.2"

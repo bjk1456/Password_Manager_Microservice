@@ -2,16 +2,26 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import Login from './Login'
+import { AuthService } from './app/auth/services/auth.service';
+import {ApiService} from "./app/api/api.service";
+import PasswordGrid from "./PasswordGrid";
 
-interface State {
+
+type ViewPasswordState = {
     email: string;
     pswd: string;
 }
 
-export default class ViewPasswords extends Component {
+type ViewPasswordProps = {
+    addPassword: Function
+    passwords: []
+}
 
+export default class ViewPasswords extends Component<ViewPasswordProps,ViewPasswordState> {
+    api = new (ApiService)
+    auth = new AuthService(this.api)
 
-    state: State = {
+    state: ViewPasswordState = {
         email: "",
         pswd: ""
     }
@@ -33,12 +43,28 @@ export default class ViewPasswords extends Component {
             alert("The password length must be AT LEAST 5 characters")
             return
         }
+
     }
 
     render() {
+        console.log(this.auth.getTokenInStorage())
+        console.log(this.auth.getTokenInStorage()  == null)
+        console.log(`the passwords are ${this.props.passwords}`)
+        //const login = this.auth.getTokenInStorage()  == null ? <Login/> : <Login/>
+        //console.log(`the login is ${login}`)
+        //const token = this.auth.getTokenInStorage();
         return (
+
             <div className='view-passwords'>
-                <Login/>
+                {this.auth.getTokenInStorage() == null ? (
+                    <Login addPassword={this.props.addPassword}/>
+                ) : (
+                    <div>
+                        <PasswordGrid passwords={this.props.passwords}/>
+                    </div>
+                )}
             </div>
+
+
         )}
 }

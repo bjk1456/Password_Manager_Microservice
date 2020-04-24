@@ -2,24 +2,64 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 //import escapeRegExp from 'escape-string-regexp'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
+import { RouteComponentProps } from 'react-router-dom';
+import {ApiService} from "./app/api/api.service";
+import { AgGridReact } from 'ag-grid-react';
+import 'ag-grid-community/dist/styles/ag-grid.css';
+import 'ag-grid-community/dist/styles/ag-theme-balham.css';
+import PasswordGrid from "./PasswordGrid";
+import {State} from "@silevis/reactgrid/dist/lib/Model";
 
-interface State {
-    name: string;
-    email: string;
-    pswdN: string;
-    pswdS: string;
+
+
+/**
+type PasswordCreationProps = {
+    withProps: string
+    passwords: []
+    addPassword: Function
+}
+ */
+type PasswordCreationProps = {
+
+    endpoint: string
+    addPassword: Function
+    passwords: []
 }
 
-export default class PasswordCreation extends Component {
+type PasswordCreationState = {
 
-    state: State = {
+    name: string
+    email: string
+    pswdN: string
+    pswdS: string
+}
+
+
+
+export default class PasswordCreation extends Component<PasswordCreationProps, PasswordCreationState> {
+
+    endpoint = this.props.endpoint;
+    api = new (ApiService)
+
+    state: PasswordCreationState = {
         name: "",
         email: "",
         pswdN: "",
         pswdS: ""
     }
 
-    handleName(e: any) {
+
+
+
+    /**
+    componentDidMount() {
+        fetch('https://api.myjson.com/bins/15psn9')
+            .then(result => result.json())
+            .then(rowData => this.setState({rowData}))
+    }
+ */
+
+        handleName(e: any) {
         this.setState({name: e})
     }
 
@@ -35,12 +75,16 @@ export default class PasswordCreation extends Component {
         this.setState({pswdS: e})
     }
 
-    handleRegister(e: any) {
-        if(this.state.name.length < 3){
+    handleGenerateRegPassword(e: any) {
+        console.log(`this.endpoint = ${JSON.stringify(this.endpoint)}`)
+        console.log(`this.endpoint = ${this.endpoint}`)
+        this.props.addPassword(this.state.pswdS)
+        console.log(`JSON.stringify(this.endpoint) = ${JSON.stringify(this.endpoint)}`)
+        if((this.state.name.length < 3) && (this.endpoint['endpoint'] === "Master")){
             alert("The name must be AT LEAST 3 characters")
             return
         }
-        if(this.state.email.length < 5){
+        if((this.state.email.length < 5) && (this.endpoint['endpoint'] === "Master")){
             alert("The email must be AT LEAST 5 characters")
             return
         }
@@ -52,6 +96,9 @@ export default class PasswordCreation extends Component {
             alert("The passwords MUST BE equal")
             return
         }
+
+        //this.api.post(this.endpoint['endpoint'],)
+
     }
 
     handleGenerateRandom(){
@@ -75,6 +122,8 @@ export default class PasswordCreation extends Component {
                                 <form>
                                     <p className="h5 text-center mb-4">Sign up</p>
                                     <div className="grey-text">
+                                        {this.endpoint['endpoint'] === "Master" ? (
+                                            <React.Fragment>
                                         <MDBInput label="Your name" icon="user" group type="text" validate error="wrong"
                                                   success="right"
                                                   onChange = {(event) =>
@@ -85,6 +134,9 @@ export default class PasswordCreation extends Component {
                                                   onChange = {(event) =>
                                                       this.handleEmail((event.target as HTMLTextAreaElement).value)}
                                                   value = {this.state.email}/>
+                                            </React.Fragment>
+                                            ) : ( <> ... </>)}
+                                            <React.Fragment>
                                         <MDBInput label="Your password" icon="lock" group type="text" validate
                                                   onChange = {(event) =>
                                                       this.handlePswdN((event.target as HTMLTextAreaElement).value)}
@@ -94,10 +146,12 @@ export default class PasswordCreation extends Component {
                                                   onChange = {(event) =>
                                                       this.handlePswdS((event.target as HTMLTextAreaElement).value)}
                                                   value = {this.state.pswdS}/>
+                                            </React.Fragment>
+
                                     </div>
                                     <div className="text-center">
                                         <MDBBtn onClick= {(event) =>
-                                            this.handleRegister((event.target as HTMLTextAreaElement).value)} color="primary">Register</MDBBtn>
+                                            this.handleGenerateRegPassword((event.target as HTMLTextAreaElement).value)} color="primary">Create</MDBBtn>
                                         <MDBBtn onClick= {(event) =>
                                             this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
                                     </div>
@@ -105,6 +159,9 @@ export default class PasswordCreation extends Component {
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
+                    <div>
+                        <PasswordGrid passwords={this.props.passwords}/>
+                    </div>
                 </ol>
             </div>
         )}

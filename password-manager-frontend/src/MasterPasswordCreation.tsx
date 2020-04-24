@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import escapeRegExp from 'escape-string-regexp'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
 import PasswordCreation from "./PasswordCreation";
+import {ApiService} from "./app/api/api.service";
 
 interface State {
     name: string;
@@ -12,6 +13,8 @@ interface State {
 }
 
 export default class MasterPasswordCreation extends Component {
+    api = new (ApiService)
+
     static propTypes = {
         books: PropTypes.array.isRequired,
         onAddBookChoice: PropTypes.func.isRequired,
@@ -63,7 +66,6 @@ export default class MasterPasswordCreation extends Component {
     render() {
         return (
             <div className='master-password-creation'>
-                <PasswordCreation/>
             </div>
         )}
 }
