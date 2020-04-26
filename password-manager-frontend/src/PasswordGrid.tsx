@@ -13,19 +13,29 @@ export default class PasswordGrid extends Component<PasswordGridProps> {
     rowData: any = this.props.passwords
 
     handleProps(){
+        console.log(`raw row data is ${this.rowData}`)
         console.log(`the JSON.stringify(this.rowData.indexOf(0)['password'] is ${JSON.stringify(this.rowData.indexOf(0))}`)
         console.log(`rowData is ${JSON.stringify(this.rowData)}`)
 
-        this.rowData.forEach((r) => {
+
+        this.props.passwords.forEach((r) => {
             console.log(`inside r it is ... JSON.stringify(r)  ${JSON.stringify(r)}`)
         })
 
+
+    }
+
+    combineProps(){
+        this.props.passwords.forEach((p) => {
+
+        })
     }
 
     render() {
 
         const columnDefs = [
-            {headerName: 'Password', field: 'password', width: 150, filter: 'text'}
+            {headerName: 'Password', field: 'password'},{headerName: 'Website', field: 'website'},
+            {headerName: 'DateCreated', field: 'dateCreated'}
         ]
 
         this.handleProps()
@@ -34,13 +44,12 @@ export default class PasswordGrid extends Component<PasswordGridProps> {
             { password: "(CnnSucksPassword" }]
 
         const rowProps = this.props.passwords
-
-        alert(rowdata[0]['password'])
+        
 
 
         return (
 
-            <div className='password-grid'  style={{height: '700px', width: '800px'}}>
+            <div className='password-grid'>
                 <div
                     className="ag-theme-balham"
                     style={{height: '500px', width: '600px'}}
@@ -48,7 +57,7 @@ export default class PasswordGrid extends Component<PasswordGridProps> {
                 <AgGridReact
 
                     columnDefs={columnDefs}
-                    rowData={this.rowData[0]}>
+                    rowData={this.props.passwords}>
 
                 </AgGridReact>
             </div>

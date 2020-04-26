@@ -57,24 +57,16 @@ export default class Login extends Component<LoginProps,{}> {
                     const rowData = Array();
                     data.passwords.forEach((row : any) => {
 
-                        let a = new Array();
-                        //let mapRow = new Map();
-                        //let mapRow: {[password: string] : }
-                        let mapRow = {}
-                        console.log(`inside the build row ... it is ${row}`)
-                        console.log(`inside the build row.split(",")[0]) ... it is ${row.split(",")[0]}`)
                         let pswd = row.split(",")[0].toString()
-                        //{password: pswd}
-                        //mapRow['password'] =  {password: pswd}
+                        let website = row.split(",")[1].toString()
+                        let dateCreated = row.split(",")[2].toString()
 
-                        //mapRow.set("password", row.split(",")[0].toString())
-                        //a.push({'password': val})
-                        a.concat({'password': row.split(",")[0].toString()})
-                        //rowData.concat({'password': row.split(",")[0].toString()})
-                        rowData.push({password: pswd})
+                        rowData.push({password: pswd, website: website, dateCreated: dateCreated})
+
                     })
                     rowData.forEach((r) => {
-                        console.log(`the r is ${r['password']}`)
+                        console.log(`the r is ${r}`)
+                        this.props.addPassword(r);
                     })
                     //console.log(`SON.stringify(array) == ${JSON.stringify(rowData1)}`)
                     //console.log(`array[1] == ${rowData1[1]['password']}`)
@@ -87,10 +79,9 @@ export default class Login extends Component<LoginProps,{}> {
 
 
                     //rowData.push({"password": "ItsASecret"})
-                    this.props.addPassword(rowData);
+                    //this.props.addPassword(rowData);
                     //this.props.addPassword([{password:"SuperSecretPassword"},{password:"AnotherBigSecret"}])
                 })
-                history.push('/')
         })   .catch((e) => {
                 //this.error = e.statusText;
                 alert(e.statusText)

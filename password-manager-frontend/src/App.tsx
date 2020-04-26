@@ -26,11 +26,17 @@ export default class PasswordManagerApp extends React.Component {
         passwords: []
     };
 
+
     addPassword = (password) => {
+        console.log(`inside addPassword password is ${password.password}`)
+        this.setState({passwords: this.state.passwords.concat(password)})
+        /**
         this.setState((state) => ({
             passwords : [...this.state.passwords, password]
         }))
+         */
     }
+
   render() {
     return (
         <div className="app">

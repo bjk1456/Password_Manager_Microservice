@@ -78,7 +78,8 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
     handleGenerateRegPassword(e: any) {
         console.log(`this.endpoint = ${JSON.stringify(this.endpoint)}`)
         console.log(`this.endpoint = ${this.endpoint}`)
-        this.props.addPassword(this.state.pswdS)
+        //this.props.addPassword(this.state.pswdS)
+        this.props.addPassword( {password: this.state.pswdS, website: 'SteakAndCheese', dateCreated: '9-11-2001'})
         console.log(`JSON.stringify(this.endpoint) = ${JSON.stringify(this.endpoint)}`)
         if((this.state.name.length < 3) && (this.endpoint['endpoint'] === "Master")){
             alert("The name must be AT LEAST 3 characters")
