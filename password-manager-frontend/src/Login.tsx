@@ -51,7 +51,7 @@ export default class Login extends Component<LoginProps,{}> {
 
                 //this.modal.dismiss();
             }).then((data: any) => {
-                this.api.get("/password/getAll").then((data: any) => {
+                this.api.get("1/api/v0/password/getAll").then((data: any) => {
                     console.log(`the get all data is ${JSON.stringify(data.passwords)}`)
                     const rowData1 = Array();
                     const rowData = Array();

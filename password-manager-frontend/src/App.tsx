@@ -67,9 +67,9 @@ export default class PasswordManagerApp extends React.Component {
           )}></Route>
 
           <RouteWithProps exact path = "/createMasterPassword"
-                 component = {PasswordCreation}  {...{endpoint: "Master" }}/>
+                 component = {PasswordCreation}  endpoint="0/api/v0/users/auth/"/>
           <RouteWithProps exact path = "/createRegularPassword"
-                 component = {PasswordCreation}  endpoint="ThisIsIt"  addPassword={this.addPassword} passwords={this.state.passwords}/>
+                 component = {PasswordCreation}  endpoint="1/api/v0/password/store"  addPassword={this.addPassword} passwords={this.state.passwords}/>
           <RouteWithProps exact path = "/viewPasswords"
                  component = {ViewPasswords} addPassword={this.addPassword} passwords={this.state.passwords}/>
 

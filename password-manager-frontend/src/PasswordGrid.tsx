@@ -14,13 +14,14 @@ export default class PasswordGrid extends Component<PasswordGridProps> {
 
     handleProps(){
         console.log(`raw row data is ${this.rowData}`)
-        console.log(`the JSON.stringify(this.rowData.indexOf(0)['password'] is ${JSON.stringify(this.rowData.indexOf(0))}`)
+        //console.log(`the JSON.stringify(this.rowData.indexOf(0)['password'] is ${JSON.stringify(this.rowData.indexOf(0))}`)
         console.log(`rowData is ${JSON.stringify(this.rowData)}`)
 
-
+        /**
         this.props.passwords.forEach((r) => {
             console.log(`inside r it is ... JSON.stringify(r)  ${JSON.stringify(r)}`)
         })
+         */
 
 
     }

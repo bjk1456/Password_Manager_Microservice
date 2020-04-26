@@ -9,6 +9,9 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import PasswordGrid from "./PasswordGrid";
 import {State} from "@silevis/reactgrid/dist/lib/Model";
+import {AuthService} from "./app/auth/services/auth.service";
+import date from "date-and-time";
+import history from './History';
 
 
 
@@ -32,6 +35,7 @@ type PasswordCreationState = {
     email: string
     pswdN: string
     pswdS: string
+    website: string
 }
 
 
@@ -40,12 +44,14 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
 
     endpoint = this.props.endpoint;
     api = new (ApiService)
+    auth = new AuthService(this.api)
 
     state: PasswordCreationState = {
         name: "",
         email: "",
         pswdN: "",
-        pswdS: ""
+        pswdS: "",
+        website: ""
     }
 
 
@@ -59,7 +65,7 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
     }
  */
 
-        handleName(e: any) {
+    handleName(e: any) {
         this.setState({name: e})
     }
 
@@ -75,19 +81,30 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
         this.setState({pswdS: e})
     }
 
+    handleWebsite(e: any) {
+        this.setState({website: e})
+    }
+
     handleGenerateRegPassword(e: any) {
         console.log(`this.endpoint = ${JSON.stringify(this.endpoint)}`)
         console.log(`this.endpoint = ${this.endpoint}`)
         //this.props.addPassword(this.state.pswdS)
-        this.props.addPassword( {password: this.state.pswdS, website: 'SteakAndCheese', dateCreated: '9-11-2001'})
+
         console.log(`JSON.stringify(this.endpoint) = ${JSON.stringify(this.endpoint)}`)
-        if((this.state.name.length < 3) && (this.endpoint['endpoint'] === "Master")){
-            alert("The name must be AT LEAST 3 characters")
-            return
-        }
-        if((this.state.email.length < 5) && (this.endpoint['endpoint'] === "Master")){
-            alert("The email must be AT LEAST 5 characters")
-            return
+        if(this.endpoint === "0/api/v0/users/auth/") {
+            if (this.state.name.length < 3){
+                alert("The name must be AT LEAST 3 characters")
+                return
+            }
+            if (this.state.email.length < 5){
+                alert("The email must be AT LEAST 5 characters")
+                return
+            }
+        } else{
+            if (this.state.website.length < 3){
+                alert("The website must be AT LEAST 5 characters")
+                return
+            }
         }
         if((this.state.pswdN.length < 5) || (this.state.pswdS.length < 5)){
             alert("The password length must be AT LEAST 5 characters")
@@ -97,10 +114,26 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
             alert("The passwords MUST BE equal")
             return
         }
+        console.log(`this.auth.getTokenInStorage() == ${this.auth.getTokenInStorage()}`)
 
-        //this.api.post(this.endpoint['endpoint'],)
+        this.api.post(this.endpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
+            console.log(`the reply is ${reply.toString()}`)
+            if(this.endpoint === "1/api/v0/password/store") {
+                this.props.addPassword({
+                    password: this.state.pswdS,
+                    website: this.state.website,
+                    dateCreated: new Date()
+                })
+            }
+        }).catch(error => alert(error.message))
 
-    }
+        history.push("/")
+
+
+
+
+
+}
 
     handleGenerateRandom(){
         const generator = require('generate-password');
@@ -123,7 +156,7 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
                                 <form>
                                     <p className="h5 text-center mb-4">Sign up</p>
                                     <div className="grey-text">
-                                        {this.endpoint['endpoint'] === "Master" ? (
+                                        {this.endpoint === "0/api/v0/users/auth/" ? (
                                             <React.Fragment>
                                         <MDBInput label="Your name" icon="user" group type="text" validate error="wrong"
                                                   success="right"
@@ -138,6 +171,10 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
                                             </React.Fragment>
                                             ) : ( <> ... </>)}
                                             <React.Fragment>
+                                        <MDBInput label="Website" icon="lock" group type="text" validate
+                                                  onChange = {(event) =>
+                                                      this.handleWebsite((event.target as HTMLTextAreaElement).value)}
+                                                  value = {this.state.website}/>
                                         <MDBInput label="Your password" icon="lock" group type="text" validate
                                                   onChange = {(event) =>
                                                       this.handlePswdN((event.target as HTMLTextAreaElement).value)}

@@ -92,6 +92,7 @@ export class ApiService {
       //this.httpOptions = {headers: {'Access-Control-Allow-Origin': '*'}}
 
       //const headers = {'Content-Type': 'application/json'}
+      console.log(`inside POST`)
       console.log(`this.httpOptions.headers.get('Content-Type') == ${this.headers["Content-Type"]}`)
       console.log(`this.httpOptions.headers.get('Authorization') == ${this.headers.Authorization}`)
       console.log(`the endpoint is ${url}`)
