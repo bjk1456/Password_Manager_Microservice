@@ -2,6 +2,7 @@ import React from "react";
 import Button from '@material-ui/core/Button';
 import {AuthService} from "./app/auth/services/auth.service";
 import {ApiService} from "./app/api/api.service";
+import history from "./History";
 
 export default class Logout extends React.Component<any, any> {
 
@@ -11,6 +12,7 @@ export default class Logout extends React.Component<any, any> {
 
     handleLogout(e: any) {
         this.auth.logout()
+        history.push("/")
     }
 
     render() {

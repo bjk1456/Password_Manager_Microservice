@@ -12,6 +12,7 @@ import {State} from "@silevis/reactgrid/dist/lib/Model";
 import {AuthService} from "./app/auth/services/auth.service";
 import date from "date-and-time";
 import history from './History';
+import Login from "./Login";
 
 
 
@@ -116,7 +117,12 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
         }
         console.log(`this.auth.getTokenInStorage() == ${this.auth.getTokenInStorage()}`)
 
-        if(this.endpoint === "1/api/v0/password/store") {
+        if(window.location.pathname === "/createRegularPassword") {
+            if((this.auth.getTokenInStorage()) && (this.api.getToken() == null)) {
+                console.log(`getTokenInStorage() == ${this.auth.getTokenInStorage()}`)
+                console.log(`this.api.getToken() == ${this.api.getToken()}`)
+                this.api.setAuthToken(this.auth.getTokenInStorage())
+            }
         this.api.post(this.endpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
             console.log(`the reply is ${reply.toString()}`)
 
@@ -128,7 +134,7 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
 
         }).catch(error => alert(error.message))
 }
-        if(this.endpoint === "0/api/v0/users/auth/") {
+        if(window.location.pathname === "/createMasterPassword") {
             const updatedEndpoint = "0/api/v0/users/auth/"
             this.api.post(updatedEndpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
                 console.log(`the reply is ${reply.toString()}`)
@@ -155,15 +161,16 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
     render() {
         return (
             <div className='password-creation'>
-                <h2 className="create-password">Create Password</h2>
+                {window.location.pathname === "/createMasterPassword" ? (
+                <h2 className="create-master-password">Create Master Password</h2>
+                    ) : (<h2 className="create-regular-password">Create Regular Passwords</h2>)}
                 <ol className='books-grid'>
                     <MDBContainer>
                         <MDBRow>
                             <MDBCol md="6">
                                 <form>
-                                    <p className="h5 text-center mb-4">Sign up</p>
                                     <div className="grey-text">
-                                        {this.endpoint === "0/api/v0/users/auth/" ? (
+                                        {window.location.pathname === "/createMasterPassword" ? (
                                             <React.Fragment>
                                         <MDBInput label="Your name" icon="user" group type="text" validate error="wrong"
                                                   success="right"
@@ -196,30 +203,35 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
                                                 this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
                                         </div>
                                             </React.Fragment>
-                                        ) : ( <> ... </>)}
+
+                                        ) : (<div className="text-center">
+                                                {this.auth.getTokenInStorage() ? (
+                                                    <React.Fragment>
+                                                        <MDBInput label="Website" icon="lock" group type="text" validate
+                                                                  onChange = {(event) =>
+                                                                      this.handleWebsite((event.target as HTMLTextAreaElement).value)}
+                                                                  value = {this.state.website}/>
+                                                        <MDBInput label="Your password" icon="lock" group type="text" validate
+                                                                  onChange = {(event) =>
+                                                                      this.handlePswdN((event.target as HTMLTextAreaElement).value)}
+                                                                  value = {this.state.pswdN}/>
+                                                        <MDBInput label="Confirm your password" icon="exclamation-triangle" group type="text" validate
+                                                                  error="wrong" success="right"
+                                                                  onChange = {(event) =>
+                                                                      this.handlePswdS((event.target as HTMLTextAreaElement).value)}
+                                                                  value = {this.state.pswdS}/>
+                                                        <MDBBtn onClick= {(event) =>
+                                                            this.handleGenerateRegPassword((event.target as HTMLTextAreaElement).value)} color="primary">Create</MDBBtn>
+                                                        <MDBBtn onClick= {(event) =>
+                                                            this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
+                                                    </React.Fragment>
+                                                    ) : (  <React.Fragment>
+                                                    <Login addPassword={this.props.addPassword}/>
+                                                </React.Fragment>)}
+
+                                        </div>)}
 
                                     </div>
-                                    {this.auth.getTokenInStorage() ? (
-                                    <div className="text-center">
-                                        <MDBInput label="Website" icon="lock" group type="text" validate
-                                                  onChange = {(event) =>
-                                                      this.handleWebsite((event.target as HTMLTextAreaElement).value)}
-                                                  value = {this.state.website}/>
-                                        <MDBInput label="Your password" icon="lock" group type="text" validate
-                                                  onChange = {(event) =>
-                                                      this.handlePswdN((event.target as HTMLTextAreaElement).value)}
-                                                  value = {this.state.pswdN}/>
-                                        <MDBInput label="Confirm your password" icon="exclamation-triangle" group type="text" validate
-                                                  error="wrong" success="right"
-                                                  onChange = {(event) =>
-                                                      this.handlePswdS((event.target as HTMLTextAreaElement).value)}
-                                                  value = {this.state.pswdS}/>
-                                        <MDBBtn onClick= {(event) =>
-                                            this.handleGenerateRegPassword((event.target as HTMLTextAreaElement).value)} color="primary">Create</MDBBtn>
-                                        <MDBBtn onClick= {(event) =>
-                                            this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
-                                    </div>
-                                    ) : ( <> ... </>)}
                                 </form>
                             </MDBCol>
                         </MDBRow>
