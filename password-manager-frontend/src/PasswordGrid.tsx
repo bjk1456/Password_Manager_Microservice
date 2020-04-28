@@ -1,16 +1,16 @@
 import React, {Component} from "react";
 import {AgGridReact} from "ag-grid-react";
+import Logout from "./Logout";
 
 interface PasswordGridProps {
 
     passwords: []
 }
 
-export default class PasswordGrid extends Component<PasswordGridProps> {
-
-
+export default class PasswordGrid extends Component<PasswordGridProps,{}> {
 
     rowData: any = this.props.passwords
+
 
     handleProps(){
         console.log(`raw row data is ${this.rowData}`)
@@ -62,6 +62,9 @@ export default class PasswordGrid extends Component<PasswordGridProps> {
 
                 </AgGridReact>
             </div>
+                <Logout>
+
+                </Logout>
             </div>
     )
     }

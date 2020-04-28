@@ -116,18 +116,25 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
         }
         console.log(`this.auth.getTokenInStorage() == ${this.auth.getTokenInStorage()}`)
 
+        if(this.endpoint === "1/api/v0/password/store") {
         this.api.post(this.endpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
             console.log(`the reply is ${reply.toString()}`)
-            if(this.endpoint === "1/api/v0/password/store") {
+
                 this.props.addPassword({
                     password: this.state.pswdS,
                     website: this.state.website,
                     dateCreated: new Date()
                 })
-            }
-        }).catch(error => alert(error.message))
 
-        history.push("/")
+        }).catch(error => alert(error.message))
+}
+        if(this.endpoint === "0/api/v0/users/auth/") {
+            const updatedEndpoint = "0/api/v0/users/auth/"
+            this.api.post(updatedEndpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
+                console.log(`the reply is ${reply.toString()}`)
+            })
+            history.push("/")
+        }
 
 
 
@@ -168,9 +175,7 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
                                                   onChange = {(event) =>
                                                       this.handleEmail((event.target as HTMLTextAreaElement).value)}
                                                   value = {this.state.email}/>
-                                            </React.Fragment>
-                                            ) : ( <> ... </>)}
-                                            <React.Fragment>
+
                                         <MDBInput label="Website" icon="lock" group type="text" validate
                                                   onChange = {(event) =>
                                                       this.handleWebsite((event.target as HTMLTextAreaElement).value)}
@@ -184,22 +189,46 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
                                                   onChange = {(event) =>
                                                       this.handlePswdS((event.target as HTMLTextAreaElement).value)}
                                                   value = {this.state.pswdS}/>
+                                        <div className="text-center">
+                                            <MDBBtn onClick= {(event) =>
+                                                this.handleGenerateRegPassword((event.target as HTMLTextAreaElement).value)} color="primary">Create</MDBBtn>
+                                            <MDBBtn onClick= {(event) =>
+                                                this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
+                                        </div>
                                             </React.Fragment>
+                                        ) : ( <> ... </>)}
 
                                     </div>
+                                    {this.auth.getTokenInStorage() ? (
                                     <div className="text-center">
+                                        <MDBInput label="Website" icon="lock" group type="text" validate
+                                                  onChange = {(event) =>
+                                                      this.handleWebsite((event.target as HTMLTextAreaElement).value)}
+                                                  value = {this.state.website}/>
+                                        <MDBInput label="Your password" icon="lock" group type="text" validate
+                                                  onChange = {(event) =>
+                                                      this.handlePswdN((event.target as HTMLTextAreaElement).value)}
+                                                  value = {this.state.pswdN}/>
+                                        <MDBInput label="Confirm your password" icon="exclamation-triangle" group type="text" validate
+                                                  error="wrong" success="right"
+                                                  onChange = {(event) =>
+                                                      this.handlePswdS((event.target as HTMLTextAreaElement).value)}
+                                                  value = {this.state.pswdS}/>
                                         <MDBBtn onClick= {(event) =>
                                             this.handleGenerateRegPassword((event.target as HTMLTextAreaElement).value)} color="primary">Create</MDBBtn>
                                         <MDBBtn onClick= {(event) =>
                                             this.handleGenerateRandom()} color="primary">Generate Random</MDBBtn>
                                     </div>
+                                    ) : ( <> ... </>)}
                                 </form>
                             </MDBCol>
                         </MDBRow>
                     </MDBContainer>
+                    {this.props.passwords ? (
                     <div>
                         <PasswordGrid passwords={this.props.passwords}/>
                     </div>
+                    ) : ( <> ... </>)}
                 </ol>
             </div>
         )}

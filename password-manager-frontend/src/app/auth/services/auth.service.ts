@@ -36,7 +36,7 @@ export class AuthService {
       console.log("Hello! from the login function")
          //this.api.post('/users/auth/login',
           //   {email: email, password: password})
-    return this.api.post('/users/auth/login',
+    return this.api.post('0/api/v0/users/auth/login',
               {email: email, password: password})
               .then((res) => {
                   console.log(`the res is ${res.token}`)

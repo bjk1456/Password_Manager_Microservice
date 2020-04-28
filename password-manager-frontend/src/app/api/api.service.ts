@@ -42,6 +42,10 @@ export class ApiService {
     alert(error.message);
   }
 
+  getToken(){
+      return this.token
+  }
+
   setAuthToken(token) {
       console.log(`inside setAuthToken the token is ${token}`)
     //this.httpOptions.headers = this.httpOptions.headers.append('Authorization', `jwt ${token}`);

@@ -51,42 +51,33 @@ export default class Login extends Component<LoginProps,{}> {
 
                 //this.modal.dismiss();
             }).then((data: any) => {
-                this.api.get("1/api/v0/password/getAll").then((data: any) => {
+                this.api.get("/password/getAll").then((data: any) => {
                     console.log(`the get all data is ${JSON.stringify(data.passwords)}`)
-                    const rowData1 = Array();
-                    const rowData = Array();
-                    data.passwords.forEach((row : any) => {
+                        if(data.passwords) {
+                            const rowData = Array();
+                            data.passwords.forEach((row: any) => {
+                                let pswd = row.split(",")[0].toString()
 
-                        let pswd = row.split(",")[0].toString()
-                        let website = row.split(",")[1].toString()
-                        let dateCreated = row.split(",")[2].toString()
+                                let website = row.split(",")[1].toString()
+                                let dateCreated = row.split(",")[2].toString()
 
-                        rowData.push({password: pswd, website: website, dateCreated: dateCreated})
+                                rowData.push({password: pswd, website: website, dateCreated: dateCreated})
 
-                    })
-                    rowData.forEach((r) => {
-                        console.log(`the r is ${r}`)
-                        this.props.addPassword(r);
-                    })
-                    //console.log(`SON.stringify(array) == ${JSON.stringify(rowData1)}`)
-                    //console.log(`array[1] == ${rowData1[1]['password']}`)
-                    /**
-                    let map = {}
-                    data.passwords.forEach(row =>
-                    array.push(map{password: row[0]}))
-                     */
-
-
-
-                    //rowData.push({"password": "ItsASecret"})
-                    //this.props.addPassword(rowData);
-                    //this.props.addPassword([{password:"SuperSecretPassword"},{password:"AnotherBigSecret"}])
+                            })
+                            rowData.forEach((r) => {
+                                console.log(`the r is ${r}`)
+                                this.props.addPassword(r);
+                            })
+                        } else{
+                            this.props.addPassword({})
+                        }
                 })
-        })   .catch((e) => {
+        }) .catch((e) => {
                 //this.error = e.statusText;
                 alert(e.statusText)
                 throw e;
             });
+
     }
 
     async handleGetPasswords(e: any) {
