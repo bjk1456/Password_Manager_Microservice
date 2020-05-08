@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+data:
+  AWS_BUCKET: udacity-traveler
+  AWS_PROFILE: ic-1
+  AWS_REGION: us-east-1
+  JWT_SECRET: cobalt
+  POSTGRESS_DB: password_manager
+  POSTGRESS_HOST: database-2.cyevusxjwwkt.us-east-1.rds.amazonaws.com
+  URL: http://localhost:8100
+metadata:
+  name: env-config
+  
