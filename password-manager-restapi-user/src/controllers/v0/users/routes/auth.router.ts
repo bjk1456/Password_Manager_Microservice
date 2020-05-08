@@ -1,14 +1,9 @@
 import { Router, Request, Response } from 'express';
 const { Pool, Client } = require('pg')
-import { User } from '../models/User';
 import * as c from '../../../../config/config';
-
-//import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { NextFunction } from 'connect';
-
 import * as EmailValidator from 'email-validator';
-import { config } from 'bluebird';
 
 const pool = new Pool({
     user: process.env.POSTGRESS_USERNAME,
@@ -20,17 +15,6 @@ const pool = new Pool({
 
 
 const router: Router = Router();
-/**
- async function generatePassword(plainTextPassword: string): Promise<string> {
-    const saltRounds = 10;
-    let salt = await bcrypt.genSalt(saltRounds);
-    return await bcrypt.hash(plainTextPassword, salt);
-}
-
- async function comparePasswords(plainTextPassword: string, hash: string): Promise<boolean> {
-    return await bcrypt.compare(plainTextPassword, hash);
-}
- */
 
 function generateJWT(email: string): string {
     console.log("generateJWT")
@@ -38,11 +22,9 @@ function generateJWT(email: string): string {
 }
 
 export function requireAuth(req: Request, res: Response, next: NextFunction) {
-//   return next();
     if (!req.headers || !req.headers.authorization){
         return res.status(401).send({ message: 'No authorization headers.' });
     }
-
 
     const token_bearer = req.headers.authorization.split(' ');
     if(token_bearer.length != 2){
@@ -67,7 +49,6 @@ router.get('/verification',
 router.post('/login', async (req: Request, res: Response) => {
     const email = req.body.email;
     const password = req.body.password;
-    console.log(`the email is ${email} the password is ${password}`)
     // check email is valid
     if (!email || !EmailValidator.validate(email)) {
         return res.status(400).send({ auth: false, message: 'Email is required or malformed' });
@@ -78,46 +59,22 @@ router.post('/login', async (req: Request, res: Response) => {
         return res.status(400).send({ auth: false, message: 'Password is required' });
     }
 
-    /**
-     const user = await User.findByPk(email);
-     // check that user exists
-     if(!user) {
-        return res.status(401).send({ auth: false, message: 'Unauthorized' });
-    }
-
-     // check that the password matches
-     const authValid = await comparePasswords(password, user.password_hash)
-
-     if(!authValid) {
-        return res.status(401).send({ auth: false, message: 'Unauthorized' });
-    }
-     */
     const request = {
         text: 'SELECT  authenticate_email($1, $2);',
         values: [email,password]
     }
-    await pool.query(request).then((body)  => {
-        //const resp = JSON.stringify(body);
+    await pool.query(request).then((body: any)  => {
         const authEmail = body.rows[0].authenticate_email
         if(authEmail == null){
             return res.status(401).send({ auth: false, message: 'Unauthorized' });
         }
-        //const resp = body{'authenticate_email'}
-        console.log(`the body is ${authEmail}`)
         // Generate JWT
         const jwt = generateJWT(email);
 
         res.status(200).send({ auth: true, token: jwt, user: email});
-        //res.send(`Successfully added master password`);
-    }).catch((err) => {
-        //res.send(err.detail);
+    }).catch((err: any) => {
         return res.status(401).send({ auth: false, message: err.detail });
-
     })
-    console.log("Sup dude?")
-
-
-
 });
 
 //register a new user
@@ -139,21 +96,12 @@ router.post('/', async (req: Request, res: Response) => {
         values: [email,plainTextPassword]
     }
 
-    await pool.query(request).then((body)  => {
-        //const resp = JSON.stringify(body);
-
-        //const resp = body{'authenticate_email'}
-        // Generate JWT
+    await pool.query(request).then((body: any)  => {
         const jwt = generateJWT(email);
-
         return res.status(200).send({ auth: true, token: jwt, user: email});
-        //res.send(`Successfully added master password`);
-    }).catch((err) => {
-        //res.send(err.detail);
+    }).catch((err: any) => {
         return res.status(401).send({ auth: false, message: err.detail });
-
     })
-    console.log("Sup dude? ... Inside PATH /")
 });
 
 router.get('/', async (req: Request, res: Response) => {

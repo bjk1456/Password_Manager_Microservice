@@ -1,28 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-//import escapeRegExp from 'escape-string-regexp'
 import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
-import { RouteComponentProps } from 'react-router-dom';
 import {ApiService} from "./app/api/api.service";
-import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import PasswordGrid from "./PasswordGrid";
-import {State} from "@silevis/reactgrid/dist/lib/Model";
 import {AuthService} from "./app/auth/services/auth.service";
-import date from "date-and-time";
 import history from './History';
 import Login from "./Login";
 
-
-
-/**
-type PasswordCreationProps = {
-    withProps: string
-    passwords: []
-    addPassword: Function
-}
- */
 type PasswordCreationProps = {
 
     endpoint: string
@@ -39,12 +24,10 @@ type PasswordCreationState = {
     website: string
 }
 
-
-
 export default class PasswordCreation extends Component<PasswordCreationProps, PasswordCreationState> {
 
     endpoint = this.props.endpoint;
-    api = new (ApiService)
+    api = new ApiService()
     auth = new AuthService(this.api)
 
     state: PasswordCreationState = {
@@ -54,17 +37,6 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
         pswdS: "",
         website: ""
     }
-
-
-
-
-    /**
-    componentDidMount() {
-        fetch('https://api.myjson.com/bins/15psn9')
-            .then(result => result.json())
-            .then(rowData => this.setState({rowData}))
-    }
- */
 
     handleName(e: any) {
         this.setState({name: e})
@@ -87,11 +59,6 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
     }
 
     handleGenerateRegPassword(e: any) {
-        console.log(`this.endpoint = ${JSON.stringify(this.endpoint)}`)
-        console.log(`this.endpoint = ${this.endpoint}`)
-        //this.props.addPassword(this.state.pswdS)
-
-        console.log(`JSON.stringify(this.endpoint) = ${JSON.stringify(this.endpoint)}`)
         if(this.endpoint === "0/api/v0/users/auth/") {
             if (this.state.name.length < 3){
                 alert("The name must be AT LEAST 3 characters")
@@ -111,43 +78,31 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
             alert("The password length must be AT LEAST 5 characters")
             return
         }
-        if(this.state.pswdN != this.state.pswdS){
+        if(this.state.pswdN !== this.state.pswdS){
             alert("The passwords MUST BE equal")
             return
         }
-        console.log(`this.auth.getTokenInStorage() == ${this.auth.getTokenInStorage()}`)
 
         if(window.location.pathname === "/createRegularPassword") {
             if((this.auth.getTokenInStorage()) && (this.api.getToken() == null)) {
-                console.log(`getTokenInStorage() == ${this.auth.getTokenInStorage()}`)
-                console.log(`this.api.getToken() == ${this.api.getToken()}`)
                 this.api.setAuthToken(this.auth.getTokenInStorage())
             }
         this.api.post(this.endpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
-            console.log(`the reply is ${reply.toString()}`)
-
                 this.props.addPassword({
                     password: this.state.pswdS,
                     website: this.state.website,
                     dateCreated: new Date()
                 })
-
         }).catch(error => alert(error.message))
 }
         if(window.location.pathname === "/createMasterPassword") {
             const updatedEndpoint = "0/api/v0/users/auth/"
             this.api.post(updatedEndpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
-                console.log(`the reply is ${reply.toString()}`)
+                this.auth.logout()
             })
             history.push("/")
         }
-
-
-
-
-
 }
-
     handleGenerateRandom(){
         const generator = require('generate-password');
         const password = generator.generate({

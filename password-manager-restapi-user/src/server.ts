@@ -25,15 +25,7 @@ const c = config.dev;
   app.options('*',cors())
 
   //CORS Should be restricted
-  /**
-  app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", c.url);
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
-  });
-*/
   app.use('/api/v0/', IndexRouter)
-
   app.use('/api/v0/postgres', PostgresRouter)
 
   // Root URI call

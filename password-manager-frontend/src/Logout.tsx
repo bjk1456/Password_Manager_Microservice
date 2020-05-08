@@ -6,8 +6,7 @@ import history from "./History";
 
 export default class Logout extends React.Component<any, any> {
 
-
-    api = new (ApiService)
+    api = new ApiService()
     auth = new AuthService(this.api)
 
     handleLogout(e: any) {

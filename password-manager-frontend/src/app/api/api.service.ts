@@ -1,10 +1,5 @@
-
 import axios from 'axios';
-
 import { environment } from '../../environments/environments';
-import { Observable } from 'rxjs';
-//import { FeedItem } from '../feed/models/feed-item.model';
-import { catchError, tap, map } from 'rxjs/operators';
 
 const API_HOST = environment.apiHost;
 
@@ -34,10 +29,7 @@ export class ApiService {
 
   token: string;
 
-  /**
-  constructor(private ax: axios) {
-  }
-*/
+
   handleError(error: Error) {
     alert(error.message);
   }

@@ -34,7 +34,7 @@
     "react-http-request": "^2.0.0",
     "react-router-dom": "^5.1.2",
     "react-router-util": "^0.10.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "3.4.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -44,7 +44,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "@typescript-eslint/no-array-constructor": "off"
+    }
   },
   "browserslist": {
     "production": [

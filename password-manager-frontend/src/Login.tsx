@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
-import {MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow} from "mdbreact";
+import {MDBBtn, MDBCol, MDBContainer, MDBRow} from "mdbreact";
 import { AuthService } from './app/auth/services/auth.service';
 import {ApiService} from "./app/api/api.service";
-import history from './History';
 
 interface State {
     email: string;
@@ -15,7 +13,7 @@ type LoginProps = {
 }
 
 export default class Login extends Component<LoginProps,{}> {
-    api = new (ApiService)
+    api = new ApiService()
     auth = new AuthService(this.api)
     state: State = {
         email: "",
@@ -32,8 +30,6 @@ export default class Login extends Component<LoginProps,{}> {
 
     handleSubmit(e: any) {
 
-        const api = new ApiService()
-        const auth = new AuthService(api)
         if(this.state.email.length < 3){
             alert("The name must be AT LEAST 3 characters")
             return
@@ -43,52 +39,30 @@ export default class Login extends Component<LoginProps,{}> {
             return
         }
 
-        this.auth.login(
-            this.state.email,
-            this.state.pswd)
+        this.auth.login(this.state.email, this.state.pswd)
             .then((user: any) => {
-               console.log(`the user is ${user.toString()}`)
-
-                //this.modal.dismiss();
             }).then((data: any) => {
                 this.api.get("/password/getAll").then((data: any) => {
-                    console.log(`the get all data is ${JSON.stringify(data.passwords)}`)
                         if(data.passwords) {
-                            const rowData = Array();
+                            const rowData = new Array();
+
                             data.passwords.forEach((row: any) => {
                                 let pswd = row.split(",")[0].toString()
-
                                 let website = row.split(",")[1].toString()
                                 let dateCreated = row.split(",")[2].toString()
-
                                 rowData.push({password: pswd, website: website, dateCreated: dateCreated})
-
                             })
                             rowData.forEach((r) => {
-                                console.log(`the r is ${r}`)
                                 this.props.addPassword(r);
                             })
                         } else{
                             this.props.addPassword({})
                         }
                 })
-        }) .catch((e) => {
-                //this.error = e.statusText;
+        }).catch((e) => {
                 alert(e.statusText)
                 throw e;
             });
-
-    }
-
-    async handleGetPasswords(e: any) {
-
-        //const api = new ApiService();
-        const all = await this.api.get('/password/getAll');
-        //const rows = all.passwords;
-        console.log(`the rows of data are ${all.passwords}`)
-
-
-
     }
 
     render() {
@@ -119,10 +93,6 @@ export default class Login extends Component<LoginProps,{}> {
         <MDBBtn onClick= {(event) =>
         this.handleSubmit((event.target as HTMLTextAreaElement).value)} color="indigo" >Login</MDBBtn>
             </div>
-                <div className="text-center mt-4">
-                    <MDBBtn onClick= {(event) =>
-                        this.handleGetPasswords((event.target as HTMLTextAreaElement).value)} color="indigo" >Get Passwords</MDBBtn>
-                </div>
             </form>
             </MDBCol>
             </MDBRow>

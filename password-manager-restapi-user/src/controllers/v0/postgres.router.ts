@@ -19,9 +19,9 @@ router.get('/', async (req: Request, res: Response) => {
         text: 'CALL store_master_password($1, $2);',
         values: ['Jeb@Microsoft.com','JebBush']
     }
-    await pool.query(request).then((body)  => {
+    await pool.query(request).then((body: any)  => {
         res.send(`Successfully added master password`);
-    }).catch((err) => {
+    }).catch((err: any) => {
         res.send(err.detail);
         console.log(`the error is ${err.detail}`);
     })

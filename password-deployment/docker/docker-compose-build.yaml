@@ -1,0 +1,18 @@
+version: "3"
+services:
+  reverseproxy:
+    build:
+      context: .
+    image: scheele/reverseproxy 
+  backend_user:
+    build:
+      context: ../../password-manager-restapi-user
+    image: bjk14556/password-manager-restapi-user
+  backend_feed:
+    build:
+      context: ../../password-manager-restapi-password
+    image: bjk14556/password-manager-restapi-password
+  frontend:
+    build:
+      context: ../../password-manager-frontend
+    image: bjk14556/udacity-frontend
