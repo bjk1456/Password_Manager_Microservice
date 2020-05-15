@@ -13,10 +13,11 @@ const c = config.dev;
   await sequelize.sync();
 
   const app = express();
-  const port = process.env.PORT || 8081; // default port to listen
-  
-  app.use(bodyParser.json());
   app.use(cors())
+  const port = process.env.PORT || 8080; // default port to listen
+
+
+  app.use(bodyParser.json());
 
   //CORS Should be restricted
   /**

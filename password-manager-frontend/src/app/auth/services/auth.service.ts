@@ -28,12 +28,13 @@ export class AuthService {
 
    login(email: string, password: string): Promise<any> {
       console.log("Hello! from the login function")
-         //this.api.post('/users/auth/login',
-          //   {email: email, password: password})
-    return this.api.post('0/api/v0/users/auth/login',
+       console.log(`email is ${email} password is ${password}`)
+    return this.api.post('/users/auth/login',
               {email: email, password: password})
               .then((res) => {
-                  console.log(`the res is ${res.token}`)
+                  console.log(`the res is ${res}`)
+                  console.log(`the JSON.stringify(res) is ${JSON.stringify(res)}`)
+                  console.log(`the res is.token ${res.token}`)
                 this.setToken(res.token);
 
                 return res;

@@ -62,8 +62,8 @@ export class ApiService {
   }
 
   async get(endpoint): Promise<any> {
-      const url = `http://localhost:8081/api/v0${endpoint}`
-      //const url = `${API_HOST}${endpoint}`;
+      //const url = `http://localhost:8081/api/v0${endpoint}`
+      const url = `${API_HOST}${endpoint}`;
       //const req = this.http.get(url, this.httpOptions).pipe(map(this.extractData));
       //console.log(`the headers are ${JSON.stringify(this.httpOptions)}`)
       console.log(`this.httpOptions.headers.get('Content-Type') == ${this.headers["Content-Type"]}`)
@@ -92,7 +92,7 @@ export class ApiService {
       console.log(`this.httpOptions.headers.get('Content-Type') == ${this.headers["Content-Type"]}`)
       console.log(`this.httpOptions.headers.get('Authorization') == ${this.headers.Authorization}`)
       console.log(`the endpoint is ${url}`)
-      console.log(`the data is ${data}`)
+      console.log(`the JSON.stringify(data) is ${JSON.stringify(data)}`)
 
       const req = axios.post(url, data, {headers: this.headers})
           .then(res => {return res.data})

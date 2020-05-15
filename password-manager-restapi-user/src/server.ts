@@ -18,11 +18,13 @@ const c = config.dev;
   await sequelize.sync();
 
   const app = express();
+  app.use(cors())
+  //app.options('*',cors())
   const port = process.env.PORT || 8080; // default port to listen
   
   app.use(bodyParser.json());
-  app.use(cors())
-  app.options('*',cors())
+
+
 
   //CORS Should be restricted
   app.use('/api/v0/', IndexRouter)

@@ -6,9 +6,8 @@ metadata:
   name: frontend
 spec:
   ports:
-  - name: "8100"
-    port: 8100
-    targetPort: 80
+  - port: 8100
+    targetPort: 3000
   selector:
     service: frontend
-#  type: LoadBalancer    
+  type: LoadBalancer

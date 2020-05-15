@@ -59,7 +59,7 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
     }
 
     handleGenerateRegPassword(e: any) {
-        if(this.endpoint === "0/api/v0/users/auth/") {
+        if(this.endpoint === "/users/auth/") {
             if (this.state.name.length < 3){
                 alert("The name must be AT LEAST 3 characters")
                 return
@@ -96,7 +96,7 @@ export default class PasswordCreation extends Component<PasswordCreationProps, P
         }).catch(error => alert(error.message))
 }
         if(window.location.pathname === "/createMasterPassword") {
-            const updatedEndpoint = "0/api/v0/users/auth/"
+            const updatedEndpoint = "/users/auth/"
             this.api.post(updatedEndpoint,{"password": this.state.pswdS,"website": this.state.website,"email": this.state.email}).then((reply: any) => {
                 this.auth.logout()
             })

@@ -4,9 +4,8 @@
 
 export const environment = {
   production: false,
-  appName: 'PasswordManager',
-  //apiHost: 'http://localhost:8081/api/v0'
-  apiHost: 'http://localhost:808'
+  apiHost: 'http://reverseproxy:8080/api/v0',
+  appName: 'PasswordManager'
 };
 
 /*

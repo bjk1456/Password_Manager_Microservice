@@ -1,6 +1,8 @@
 # pull official base image
-FROM mhart/alpine-node:12
+FROM node:13.12.0-alpine
 # If missing, container immediately exits from docker if you run without allocating a TTY
+
+RUN apk --no-cache add curl
 
 # set working directory
 WORKDIR /usr/src/app
