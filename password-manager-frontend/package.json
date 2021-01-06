@@ -19,7 +19,7 @@
     "@types/react-router-dom": "^5.1.4",
     "ag-grid-community": "^23.0.2",
     "ag-grid-react": "^23.0.3",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "date-and-time": "^0.13.1",
     "escape-string-regexp": "^3.0.0",
     "generate-password": "^1.5.1",
